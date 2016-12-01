@@ -1,0 +1,25 @@
+package org.jt.opensource
+import java.lang.String
+
+rule "Rule 01"     
+    when  
+        String (toString=="jack")   
+    then  
+       System.out.println("HelloWorld");  
+       
+end
+
+rule "Rule 02"     
+    when  
+        String (toString=="solon")   
+            then  
+       System.out.println("Hello,solon"); 
+end  
+
+
+rule "Rule 03"     
+    when  
+        String (startWith("tj")==true)   
+            then  
+       System.out.println("Hello,solon"); 
+end 
