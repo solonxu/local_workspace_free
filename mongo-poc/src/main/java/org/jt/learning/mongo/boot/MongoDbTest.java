@@ -39,6 +39,7 @@ public class MongoDbTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 //		User user = new User("solon", "passw0rd");
 //
 //		// save
