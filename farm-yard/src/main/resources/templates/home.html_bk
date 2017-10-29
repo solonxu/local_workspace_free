@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+   <title>Family Yard</title>
+   <script th:src="@{js/a.js}"></script>
+  <!--  
+     <script src="static/js/a.js"></script>
+      -->
+      <script>
+        /*<![CDATA[*/
+
+     //   function display_alert()
+ // {
+ // alert("I am an alert box!!")
+  //}
+
+
+        /*]]>*/
+    </script>
+</head>
+
+<body>
+   <h2> Spring Boot Contact lar</h2>
+   
+   <form action="/login" method="POST">
+      <label for="firstName">First Name:</label>
+      <input type="text" name="firstName"/><br/>
+      
+      
+      <label for="lastName">Last Name:</label>
+      <input type="text" name="lastName"/><br/>
+      
+      <ul th:each="contact :${contacts}">
+        <li>
+         <span th:text="${contact.firstName}">First d</span>
+         <span th:text="${contact.lastName}">Last</span>
+
+        </li>
+        
+     
+      
+      </ul>
+      
+      <input type="button" onclick=" display_alert();" value="Click me"/>
+      <input type="submit" value="µÇÂ½" />
+   </form>
+   
+   
+   <form:inputText name="userName" value="${contact.firstName}" />
+   <h>teataetjaieiajiajeiat</h>
+   <p>"<span th:text="${title}"/>"</p>
+   
+   
+  <!--   <img th:src="@{img/beau.jpg}"/>-->
+    <img th:src="@{/image/show}"/>
+</body>
+
+
+  
+</html>
