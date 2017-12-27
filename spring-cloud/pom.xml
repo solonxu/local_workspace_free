@@ -99,6 +99,7 @@
             <configuration>
                 <excludes>
                     <exclude>application.properties</exclude>
+                    <exclude>logback.xml</exclude>
                 </excludes>
                 <source>1.8</source>
                 <target>1.8</target>
