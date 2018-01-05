@@ -13,7 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
-import java.util.zip.GZIPOutputStream;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
@@ -138,22 +137,49 @@ public class GSFileUtil {
 	}
 	
 	
-	public static void main(String ar[]) {
-	   //copyFile("sx-183314-bucket","landing/scp/LOH/tchan.txt","outgoing-bucket","landing/scp/LOH/tchan.txt");
+	public static void main(String arg[]) {
 		try {
-		  //  download("sx-183314-bucket","landing/scp/LOH/tchan.txt",new File("D:\\learning\\gcp\\tmp\\tchan.txt"));
-			
-			//upload(new File("D:\\learning\\gcp\\tmp\\tchan.txt"),"outgoing-bucket","landing/scp/LOH/tchan2.txt");
-			
-			if (delete("outgoing-bucket","landing/scp/LOH/tchan2.txt")) {
-				System.out.println("delete succssfully");;
-			} else {
-				System.out.println("failed to delete");
-			}
-			
+		    if ("DOWNLOAD".equalsIgnoreCase(arg[0])) {
+			    System.out.println("Sample: DOWNLOAD  <bucketName> <bucketPath> <localFileName> "); 
+			    String bucketName = arg[1];
+			    String pathNameInBucket = arg[2];
+			    String localFileName = arg[3];
+			  
+			    download(bucketName,pathNameInBucket,new File(localFileName));
+			} 
+	   
+		
+		    if ("UPLOAD".equalsIgnoreCase(arg[0])) {
+		        System.out.println("Sample: UPLOAD  <localFileName> <bucketName> <bucketPath>  "); 
+			    String localFileName = arg[1];
+		        String bucketName = arg[2];
+			    String pathNameInBucket = arg[3];
+			  
+			    upload(new File(localFileName),bucketName,pathNameInBucket);
+			} 
+	   
+		    
+		    if ("DELETE".equalsIgnoreCase(arg[0])) {
+		        System.out.println("Sample: DELETE <bucketName> <bucketPath>  "); 
+			    String bucketName = arg[1];
+			    String pathNameInBucket = arg[2];
+			  
+			    delete(bucketName,pathNameInBucket);
+			} 
+		    
+		    
+		
+		    
+		    
+		    
+		    
+		    
 		} catch (Exception e) {
 			e.printStackTrace();
+			
 		}
+	    
+	  
 	}
 	
 	

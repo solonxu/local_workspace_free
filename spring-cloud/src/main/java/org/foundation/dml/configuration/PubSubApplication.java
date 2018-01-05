@@ -88,9 +88,11 @@ public class PubSubApplication {
   @ServiceActivator(inputChannel = "pubsubInputChannel")
   public MessageHandler messageReceiver() {
     return message -> {
-      LOGGER.info("Message arrived! Payload: " + message.getPayload());
+    //  LOGGER.info("Message arrived! Payload: " + message.getPayload());
+      LOGGER.info("Message arrived! Payload: " + message.getHeaders().get("objectId"));
       
-      this.eventProcessor.process(message.getPayload());
+      this.eventProcessor.process(message.getHeaders().get("objectId"));
+      
       
       AckReplyConsumer consumer =
           (AckReplyConsumer) message.getHeaders().get(GcpHeaders.ACKNOWLEDGEMENT);
