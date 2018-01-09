@@ -21,7 +21,7 @@ public class ProcessUpdateImpl implements IProcessUpdate {
 		
 		if (outputFeeds != null) {
 			for (Feed feed : outputFeeds) {
-			    System.out.println("\t Feed :" + feed.getCategory() +",instanceId:" + feed.getDataLoadInstanceId());
+			    System.out.println("\t Feed :" + feed.getCategory() +",instanceId:" + feed.getDataLoadInstanceID());
 			}
 		} else {
 			System.out.println("No feeds got");

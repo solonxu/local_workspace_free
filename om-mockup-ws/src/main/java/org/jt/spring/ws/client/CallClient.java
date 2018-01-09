@@ -15,7 +15,7 @@ public class CallClient {
 	
 	public static void main(String arg[]) {
 		JaxWsDynamicClientFactory factory =  JaxWsDynamicClientFactory.newInstance();
-		Client client = factory.createClient("http://localhost:8080/om/service/processUpdate?wsdl");
+		Client client = factory.createClient("http://35.205.135.62:8090/om/service/processUpdate?wsdl");
 		
 		try {
 			// HelloService service = (HelloService)client;
@@ -30,7 +30,7 @@ public class CallClient {
 			request.setBusinessDate("201720111");
 			Feed feed = new Feed();
 			feed.setCategory("DML");
-			feed.setDataLoadInstanceId("2211");
+			feed.setDataLoadInstanceID("2211");
 			
 			List<Feed> outputFeeds = new ArrayList<Feed>();
 			outputFeeds.add(feed);
