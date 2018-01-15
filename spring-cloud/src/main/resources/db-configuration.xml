@@ -6,6 +6,7 @@
 	default-lazy-init="true">
 
 	<description>Database configuration</description>
+    <context:annotation-config/>
    	
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driver}"/>
@@ -29,7 +30,7 @@
          <constructor-arg ref="dbDao"/>
       </bean>
       
-       <bean id="eventProcessor" class="org.foundation.dml.event.processor.PassThroughEventProcessor" >
+       <bean id="event1Processor" class="org.foundation.dml.event.processor.PassThroughEventProcessor" >
       </bean>
 	
 	

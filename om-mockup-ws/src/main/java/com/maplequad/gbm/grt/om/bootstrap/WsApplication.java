@@ -13,8 +13,13 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
+
+import com.maplequad.gbm.grt.om.pubsub.OmPubSubSubcriber;
+import com.maplequad.gbm.grt.om.services.ProcessSchedulerManager;
+
 
 @SpringBootApplication
 //@Configuration
@@ -22,13 +27,25 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource(value={"classpath:application-bean.xml"})
 
 public class WsApplication  {
-	private Log log = LogFactory.getLog(WsApplication.class);
+	private static Log LOG = LogFactory.getLog(WsApplication.class);
 	@Autowired
 	private ApplicationContext applicationContext;
 	
+	
 	public static void main(String arg[]) {
 		Object[] sources = new Object[]{WsApplication.class};
-		SpringApplication.run(sources, arg);
+		ConfigurableApplicationContext context = SpringApplication.run(sources, arg);
+		try {
+			LOG.info("Going to boot pubsub subcriber...");
+			OmPubSubSubcriber subscriber = (OmPubSubSubcriber)context.getBean("dmlToOmSubscriber");
+		//	applicationContext.
+			 ProcessSchedulerManager processSchedulerManager =(ProcessSchedulerManager) context.getBean("processSchedulerManager");
+			 processSchedulerManager.testJob();
+			subscriber.createSubscriber();
+			LOG.info("Finished subscribe ");;
+		} catch (Exception e) {
+			LOG.error(e);
+		}
 	}
 	
 	@Bean

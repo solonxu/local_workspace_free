@@ -4,15 +4,38 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
  
      <import resource="META-INF/cxf/cxf.xml"/>
+       <import resource="/om-scheduler.xml"/>
+     
    <!--   <context:component-scan base-package="org.jt.spring.boot.config.SpringConfig">  
          --> 
     <!-- 注入spring boot无法扫描到的bean. -->
   
       
       <bean id="processUpdate" class="com.maplequad.gbm.grt.om.ws.impl.ProcessUpdateImpl">
-         
       </bean>
  
+ 
+ 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="initialSize" value="${jdbc.pool.init}" />
+        <property name="minIdle" value="${jdbc.pool.minIdle}" />
+        <property name="maxActive" value="${jdbc.pool.maxActive}" />
+    </bean>
+	
+	
+	 <bean id="feedArrivalDao" class="com.maplequad.gbm.grt.om.dao.mysql.FeedArrivalDaoImpl" >
+        <property name="dataSource" ref="dataSource"/>
+     </bean>
+	  
+	 <bean id="dmlToOmSubscriber" class="com.maplequad.gbm.grt.om.pubsub.OmPubSubSubcriber" >
+         <property name="subscriptionId" value="${dml.to.om.subscriber.name}"/>
+         <property name="feedArrivalDao" ref="feedArrivalDao"/>
+         <property name="url" value="${va.feednotification.url}"/>
+     </bean>
+    
  
 </beans>
 

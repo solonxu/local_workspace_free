@@ -13,9 +13,14 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.foundation.dml.bean.FeedArrivalBean;
 import org.foundation.dml.bean.Registry;
+import org.foundation.dml.configuration.PubSubApplication.PubsubOutboundGateway;
 import org.foundation.dml.dao.DbDao;
+import org.foundation.dml.filepoller.FilePatternChecker;
 import org.foundation.dml.util.GSFileUtil;
+import org.foundation.dml.util.JsonHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class FileEventProcessor implements EventProcessor   {
@@ -26,6 +31,10 @@ public class FileEventProcessor implements EventProcessor   {
     private String scrathDirPath = null;
     private DbDao dbDao;
     
+    @Autowired 
+    private PubsubOutboundGateway messagingGateway;
+ 
+    
     private File scratchDir = null;
   
     public FileEventProcessor(String landingBucketName,String outgoingBucketName,String scrathDirPath,DbDao dbDao) {
@@ -34,7 +43,7 @@ public class FileEventProcessor implements EventProcessor   {
     	this.outgoingBucketName = outgoingBucketName;
     	this.scrathDirPath = scrathDirPath;
     	this.dbDao = dbDao;
-    	
+
     	scratchDir = new File(scrathDirPath);
     	
     	if (!scratchDir.exists()) {
@@ -65,20 +74,28 @@ public class FileEventProcessor implements EventProcessor   {
     	     log.info(String.format("Gzip file from [%s],to [%s]",scratchFile.getAbsolutePath() ,processedFile.getAbsolutePath()));
         	 
     	     // upload  file 
-    	     String toRelativePath = createRelativeName(relativePath);
+    	    
+    	     FeedArrivalBean feedArrival= createFeedArrivalEntry(relativePath);
     	     
-    	     if (toRelativePath == null) {
+    	     if (feedArrival == null) {
     	    	 log.warn("Skip illegal event:" + relativePath);
     	    	 return ;
     	     }
     	     
+    	     String toRelativePath = feedArrival.getSourceName();
+    	     
     	     GSFileUtil.upload(processedFile, outgoingBucketName, toRelativePath );
     	     log.info(String.format("Uploaded file to bucket [%s],name [%s]",this.outgoingBucketName ,toRelativePath));
-         	
+
+    	     this.messagingGateway.sendToPubsub(JsonHelper.objectToString(feedArrival));
+    	     log.info("successfully send the pubsub to for " + this.outgoingBucketName + toRelativePath);
+    	     
+
     	     //delete the landing bucket file
     	     GSFileUtil.delete(landingBucketName, relativePath );
     	     log.info(String.format("Deleted file to bucket [%s],name [%s]",this.landingBucketName ,relativePath));
           	
+    	      
     	     //delete scratch file
     	     scratchFile.delete();
     	     processedFile.delete();
@@ -116,7 +133,7 @@ public class FileEventProcessor implements EventProcessor   {
     	
     }
     
-    private String createRelativeName(String relativePath) {
+    private FeedArrivalBean createFeedArrivalEntry(String relativePath) {
     	String[] subs = StringUtils.split(relativePath,"/");
     	
     	String sourceSystem = null;
@@ -152,7 +169,19 @@ public class FileEventProcessor implements EventProcessor   {
     	Date now = new Date();
         
     	String newFilename = sdf.format(now) + "_" + filename +"_" + sdf2.format(now) +".gz";
-    	return sourceSystem +"/" + siteCode +"/" + registry.getDataType() +"/" + registry.getDataSubType() +"/" + newFilename;
+    	String sourceName =  sourceSystem +"/" + siteCode +"/" + registry.getDataType() +"/" + registry.getDataSubType() +"/" + newFilename;
+    	
+    	
+    	FeedArrivalBean arrivalBean = new FeedArrivalBean();
+    	arrivalBean.setBatchDate(now);
+    	arrivalBean.setSourceName(registry.getSourceSystem());
+    	arrivalBean.setSite(registry.getSiteCode());;
+    	arrivalBean.setDataType(registry.getDataType());
+    	arrivalBean.setDataSubtype(registry.getDataSubType());
+    	arrivalBean.setSourceName("gs://" +  sourceName);
+    	
+    	return arrivalBean;
+    	
     }
     
     private Registry locateFeedRegistry(String sourceSystem,String siteCode,String filename) {
@@ -164,7 +193,7 @@ public class FileEventProcessor implements EventProcessor   {
           }
           
           for (Registry registry :  registryList) {
-        	   if (filename.equals(registry.getFilename())) {
+        	   if (FilePatternChecker.isMatch(filename,registry.getFilename())) {
         		   return registry;
         	   }
           }
@@ -172,7 +201,14 @@ public class FileEventProcessor implements EventProcessor   {
           return null;
     }
     
-    public static void main(String arg[]) {
+    
+    
+    public void setMessagingGateway(PubsubOutboundGateway messagingGateway) {
+		this.messagingGateway = messagingGateway;
+	}
+
+
+	public static void main(String arg[]) {
 //    	landingBucketName ="sx-183314-bucket";
 //    	outgoingBucketName = "outgoing-bucket";
 //    	scrathDirPath = "D:\\learning\\gcp\\tmp\\212";
