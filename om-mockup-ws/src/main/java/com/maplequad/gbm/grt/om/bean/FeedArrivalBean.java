@@ -9,7 +9,41 @@ public class FeedArrivalBean {
 	private String dataType;
 	private String dataSubtype;
 	private String sourceName;
+	
+	private String calcKey;
+	private String other;
+	
+	private Date businessDate;
 	private Date batchDate;
+	private long instanceId;
+	
+		
+	
+		
+	public long getInstanceId() {
+		return instanceId;
+	}
+	public void setInstanceId(long instanceId) {
+		this.instanceId = instanceId;
+	}
+	public String getCalcKey() {
+		return calcKey;
+	}
+	public void setCalcKey(String calcKey) {
+		this.calcKey = calcKey;
+	}
+	public String getOther() {
+		return other;
+	}
+	public void setOther(String other) {
+		this.other = other;
+	}
+	public Date getBusinessDate() {
+		return businessDate;
+	}
+	public void setBusinessDate(Date businessDate) {
+		this.businessDate = businessDate;
+	}
 	public String getSourceSystem() {
 		return sourceSystem;
 	}

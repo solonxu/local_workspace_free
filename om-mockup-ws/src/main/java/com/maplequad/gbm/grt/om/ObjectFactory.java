@@ -24,8 +24,8 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _FeedNotificationWrapperRequest_QNAME = new QName("http://www.maplequad.com/gbm/grt/om", "feedNotificationWrapperRequest");
-    private final static QName _FeedNotificationWrapperRequestResponse_QNAME = new QName("http://www.maplequad.com/gbm/grt/om", "feedNotificationWrapperRequestResponse");
+    private final static QName _ExecuteWrapperRequest_QNAME = new QName("http://www.maplequad.com/gbm/grt/om", "executeWrapperRequest");
+    private final static QName _ExecuteWrapperRequestResponse_QNAME = new QName("http://www.maplequad.com/gbm/grt/om", "executeWrapperRequestResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.maplequad.gbm.grt.om
@@ -35,27 +35,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link FeedNotificationWrapperRequest }
+     * Create an instance of {@link ExecuteWrapperRequest }
      * 
      */
-    public FeedNotificationWrapperRequest createFeedNotificationWrapperRequest() {
-        return new FeedNotificationWrapperRequest();
+    public ExecuteWrapperRequest createExecuteWrapperRequest() {
+        return new ExecuteWrapperRequest();
     }
 
     /**
-     * Create an instance of {@link FeedNotificationWrapperRequestResponse }
+     * Create an instance of {@link ExecuteWrapperRequestResponse }
      * 
      */
-    public FeedNotificationWrapperRequestResponse createFeedNotificationWrapperRequestResponse() {
-        return new FeedNotificationWrapperRequestResponse();
+    public ExecuteWrapperRequestResponse createExecuteWrapperRequestResponse() {
+        return new ExecuteWrapperRequestResponse();
     }
 
     /**
-     * Create an instance of {@link FeedNotificationRequest }
+     * Create an instance of {@link ExecuteRequest }
      * 
      */
-    public FeedNotificationRequest createFeedNotificationRequest() {
-        return new FeedNotificationRequest();
+    public ExecuteRequest createExecuteRequest() {
+        return new ExecuteRequest();
     }
 
     /**
@@ -75,11 +75,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link FeedNotificationResponse }
+     * Create an instance of {@link ExecuteResponse }
      * 
      */
-    public FeedNotificationResponse createFeedNotificationResponse() {
-        return new FeedNotificationResponse();
+    public ExecuteResponse createExecuteResponse() {
+        return new ExecuteResponse();
     }
 
     /**
@@ -91,21 +91,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FeedNotificationWrapperRequest }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ExecuteWrapperRequest }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://www.maplequad.com/gbm/grt/om", name = "feedNotificationWrapperRequest")
-    public JAXBElement<FeedNotificationWrapperRequest> createFeedNotificationWrapperRequest(FeedNotificationWrapperRequest value) {
-        return new JAXBElement<FeedNotificationWrapperRequest>(_FeedNotificationWrapperRequest_QNAME, FeedNotificationWrapperRequest.class, null, value);
+    @XmlElementDecl(namespace = "http://www.maplequad.com/gbm/grt/om", name = "executeWrapperRequest")
+    public JAXBElement<ExecuteWrapperRequest> createExecuteWrapperRequest(ExecuteWrapperRequest value) {
+        return new JAXBElement<ExecuteWrapperRequest>(_ExecuteWrapperRequest_QNAME, ExecuteWrapperRequest.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FeedNotificationWrapperRequestResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ExecuteWrapperRequestResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://www.maplequad.com/gbm/grt/om", name = "feedNotificationWrapperRequestResponse")
-    public JAXBElement<FeedNotificationWrapperRequestResponse> createFeedNotificationWrapperRequestResponse(FeedNotificationWrapperRequestResponse value) {
-        return new JAXBElement<FeedNotificationWrapperRequestResponse>(_FeedNotificationWrapperRequestResponse_QNAME, FeedNotificationWrapperRequestResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://www.maplequad.com/gbm/grt/om", name = "executeWrapperRequestResponse")
+    public JAXBElement<ExecuteWrapperRequestResponse> createExecuteWrapperRequestResponse(ExecuteWrapperRequestResponse value) {
+        return new JAXBElement<ExecuteWrapperRequestResponse>(_ExecuteWrapperRequestResponse_QNAME, ExecuteWrapperRequestResponse.class, null, value);
     }
 
 }

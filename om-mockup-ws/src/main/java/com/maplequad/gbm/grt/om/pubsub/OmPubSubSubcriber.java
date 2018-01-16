@@ -47,7 +47,11 @@ public class OmPubSubSubcriber {
 		                System.out.println("get the batchDate:" + feedArrivalBean.getBatchDate() +",the sourcename :" + feedArrivalBean.getSourceName());
 		                DataLoadRequestBean dlBean  = formDataloadRequestBean(feedArrivalBean);
 		                LOG.info("Create the request bean" + dlBean.getProcessId());;
+		                feedArrivalDao.insert(dlBean);
+		                LOG.info("Save into database successfully for instanceId " + dlBean.getInstanceId());
+		                
 		                FeedNotificationClient.sendNotificationRequest(url, dlBean);
+		            
 		            } catch (Exception e ) {
 		            	e.printStackTrace();
 		            }  

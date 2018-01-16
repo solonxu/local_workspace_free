@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlType;
     "reasonText"
 })
 @XmlSeeAlso({
-    FeedNotificationResponse.class
+    ExecuteResponse.class
 })
 public class ResponseBase {
 

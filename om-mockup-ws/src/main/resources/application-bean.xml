@@ -12,6 +12,7 @@
   
       
       <bean id="processUpdate" class="com.maplequad.gbm.grt.om.ws.impl.ProcessUpdateImpl">
+        <property name="feedArrivalDao" ref="feedArrivalDao"/>
       </bean>
  
  
@@ -28,6 +29,10 @@
 	
 	 <bean id="feedArrivalDao" class="com.maplequad.gbm.grt.om.dao.mysql.FeedArrivalDaoImpl" >
         <property name="dataSource" ref="dataSource"/>
+     </bean>
+     
+      <bean id="executeService" class="com.maplequad.gbm.grt.om.ws.service.ExecuteClient" >
+        <property name="url" value="${va.execute.url}"/>
      </bean>
 	  
 	 <bean id="dmlToOmSubscriber" class="com.maplequad.gbm.grt.om.pubsub.OmPubSubSubcriber" >

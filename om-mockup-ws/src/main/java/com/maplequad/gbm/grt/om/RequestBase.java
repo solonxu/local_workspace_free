@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlType;
     "processId"
 })
 @XmlSeeAlso({
-    FeedNotificationRequest.class
+    ExecuteRequest.class
 })
 public class RequestBase {
 
