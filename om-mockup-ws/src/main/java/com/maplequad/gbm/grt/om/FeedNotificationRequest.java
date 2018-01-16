@@ -9,25 +9,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * <p>feedNotificationRequest complex type的 Java 类。
- * 
- * <p>以下模式片段指定包含在此类中的预期内容。
- * 
- * <pre>
- * &lt;complexType name="feedNotificationRequest"&gt;
- *   &lt;complexContent&gt;
- *     &lt;extension base="{http://www.maplequad.com/gbm/grt/om}requestBase"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="Feed" type="{http://www.maplequad.com/gbm/grt/om}feed" maxOccurs="unbounded" minOccurs="0"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/extension&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "feedNotificationRequest", propOrder = {
     "feed"
