@@ -71,7 +71,7 @@ public class FeedArrivalDaoImpl  extends JdbcDaoSupport implements FeedArrivalDa
 	 		 + "?,?,?,"
 	 		 + "?,?,?,now())";
 	 		 
-	 public void insert(DataLoadRequestBean dlbBean) {
+	 public void insert(final DataLoadRequestBean dlbBean) {
 		 final Feed feed = dlbBean.getFeeds().get(0);
 		 
 		 	this.getJdbcTemplate().update(INSERT_FEED_ARRIVAL_SQL,new PreparedStatementSetter() {
