@@ -174,11 +174,11 @@ public class FileEventProcessor implements EventProcessor   {
     	
     	FeedArrivalBean arrivalBean = new FeedArrivalBean();
     	arrivalBean.setBatchDate(now);
-    	arrivalBean.setSourceName(registry.getSourceSystem());
+    	arrivalBean.setSourceSystem(registry.getSourceSystem());
     	arrivalBean.setSite(registry.getSiteCode());;
     	arrivalBean.setDataType(registry.getDataType());
     	arrivalBean.setDataSubtype(registry.getDataSubType());
-    	arrivalBean.setSourceName("gs://" +  sourceName);
+    	arrivalBean.setSourceName("gs://" + this.outgoingBucketName + "/"+ sourceName);
     	
     	return arrivalBean;
     	
