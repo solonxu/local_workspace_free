@@ -87,6 +87,7 @@ public class FileEventProcessor implements EventProcessor   {
     	     GSFileUtil.upload(processedFile, outgoingBucketName, toRelativePath );
     	     log.info(String.format("Uploaded file to bucket [%s],name [%s]",this.outgoingBucketName ,toRelativePath));
 
+    	     feedArrival.setSourceName("gs://" + this.outgoingBucketName + "/" + toRelativePath);
     	     this.messagingGateway.sendToPubsub(JsonHelper.objectToString(feedArrival));
     	     log.info("successfully send the pubsub to for " + this.outgoingBucketName + toRelativePath);
     	     
@@ -178,7 +179,7 @@ public class FileEventProcessor implements EventProcessor   {
     	arrivalBean.setSite(registry.getSiteCode());;
     	arrivalBean.setDataType(registry.getDataType());
     	arrivalBean.setDataSubtype(registry.getDataSubType());
-    	arrivalBean.setSourceName("gs://" + this.outgoingBucketName + "/"+ sourceName);
+    	arrivalBean.setSourceName(sourceName);
     	
     	return arrivalBean;
     	
