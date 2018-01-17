@@ -1,33 +1,88 @@
 package com.maplequad.gbm.grt.om.client;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "feed", propOrder = {
+    "category",
+    "sourceSystem",
+    "partitionId",
+    "site",
+    "region",
+    "dataType",
+    "dataSubType",
+    "feedBusinessDate",
+    "incrementalFeed",
+    "isReplacement",
+    "adjustmentFeed",
+    "sourceName",
+    "retrievalKey",
+    "fromDateTime",
+    "untilDateTime",
+    "part",
+    "maxPart",
+    "other",
+    "calcKey",
+    "owner",
+    "dataLoadInstanceID",
+    "any"
+})
 public class Feed {
-	protected String category;
-	protected String dataLoadInstanceID;
-	protected String sourceSystem;
-	protected Long partitionId;
-	protected String region;
-	protected String site;
-	protected String dataType;
-	protected String dataSubType;
-	protected String feedBusinessDate;
-	protected boolean incrementalFeed;
-	protected boolean adjustmentFeed;
-	protected boolean sourceName;
-	protected String retrievalKey;
-	protected XMLGregorianCalendar fromDateTime;
-	protected XMLGregorianCalendar untilDateTime;
+	   @XmlElement(name = "Category", required = true)
+	    protected String category;
+	    @XmlElement(name = "SourceSystem", required = true)
+	    protected String sourceSystem;
+	    @XmlElement(name = "PartitionId")
+	    protected Long partitionId;
+	    @XmlElement(name = "Site", required = true)
+	    protected String site;
+	    @XmlElement(name = "Region", required = true)
+	    protected String region;
+	    @XmlElement(name = "DataType", required = true)
+	    protected String dataType;
+	    @XmlElement(name = "DataSubType", required = true)
+	    protected String dataSubType;
+	    @XmlElement(name = "FeedBusinessDate", required = true)
+	    protected String feedBusinessDate;
+	    @XmlElement(name = "IncrementalFeed")
+	    protected boolean incrementalFeed;
+	    @XmlElement(name = "IsReplacement")
+	    protected boolean isReplacement;
+	    @XmlElement(name = "AdjustmentFeed")
+	    protected boolean adjustmentFeed;
+	    @XmlElement(name = "SourceName")
+	    protected String sourceName;
+	    @XmlElement(name = "RetrievalKey")
+	    protected String retrievalKey;
+	    @XmlElement(name = "FromDateTime")
+	    @XmlSchemaType(name = "dateTime")
+	    protected XMLGregorianCalendar fromDateTime;
+	    @XmlElement(name = "UntilDateTime")
+	    @XmlSchemaType(name = "dateTime")
+	    protected XMLGregorianCalendar untilDateTime;
+	    @XmlElement(name = "Part")
+	    protected int part;
+	    @XmlElement(name = "MaxPart")
+	    protected int maxPart;
+	    @XmlElement(name = "Other")
+	    protected String other;
+	    @XmlElement(name = "CalcKey")
+	    protected String calcKey;
 
-	protected int part;
-	protected int maxPart;
-	protected String other;
-	protected String owner;
-	protected Long calcKey;
-	protected Boolean isReplacement;
-	private Object[] any;
+	    @XmlElement(name = "DataLoadInstanceID")
+		protected String dataLoadInstanceID;
+	    
+	//    @XmlAnyElement( lax = true)
+	    private Object[] any;
 	
-	
+	    @XmlElement(name = "Owner")
+	    protected String owner;
+
 	
 	
 
@@ -98,10 +153,10 @@ public class Feed {
 	public void setAdjustmentFeed(boolean adjustmentFeed) {
 		this.adjustmentFeed = adjustmentFeed;
 	}
-	public boolean isSourceName() {
-		return sourceName;
+	public String getSourceName() {
+		return this.sourceName;
 	}
-	public void setSourceName(boolean sourceName) {
+	public void setSourceName(String sourceName) {
 		this.sourceName = sourceName;
 	}
 	public String getRetrievalKey() {
@@ -146,10 +201,10 @@ public class Feed {
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
-	public Long getCalcKey() {
+	public String getCalcKey() {
 		return calcKey;
 	}
-	public void setCalcKey(Long calKey) {
+	public void setCalcKey(String calKey) {
 		this.calcKey = calKey;
 	}
 	public Boolean getIsReplacement() {
