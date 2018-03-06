@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.0.xsd"
+	default-lazy-init="true">
+
+	<description>Database configuration</description>
+    <context:annotation-config/>
+   	
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="initialSize" value="${jdbc.pool.init}" />
+        <property name="minIdle" value="${jdbc.pool.minIdle}" />
+        <property name="maxActive" value="${jdbc.pool.maxActive}" />
+    </bean>
+	
+	
+	 <bean id="dbDao" class="org.foundation.dml.dao.impl.JdbcDbDao" >
+        <property name="dataSource" ref="dataSource"/>
+     </bean>
+	  
+	 <bean id="eventProcessor" class="org.foundation.dml.event.processor.FileEventProcessor" >
+         <constructor-arg value="${spring.cloud.gcp.landing.bucket}"/>
+         <constructor-arg value="${spring.cloud.gcp.outgoing.bucket}"/>
+         <constructor-arg value="${spring.cloud.gcp.scratch.path}"/>
+         <constructor-arg ref="dbDao"/>
+      </bean>
+      
+       <bean id="event1Processor" class="org.foundation.dml.event.processor.PassThroughEventProcessor" >
+      </bean>
+	
+	
+	
+</beans>
